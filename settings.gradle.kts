@@ -4,4 +4,4 @@ plugins {
 rootProject.name = "otuskotlin-202408"
 
 includeBuild("lessons")
-includeBuild("ok-project-be")
+includeBuild("ok-herodotus-be")

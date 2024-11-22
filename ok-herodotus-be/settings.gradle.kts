@@ -1,4 +1,4 @@
-rootProject.name = "ok-project-be"
+rootProject.name = "ok-herodotus-be"
 
 dependencyResolutionManagement {
     versionCatalogs {
@@ -19,4 +19,4 @@ pluginManagement {
     }
 }
 
-include(":ok-project-tmp")
+include(":ok-herodotus-tmp")
