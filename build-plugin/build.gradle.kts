@@ -6,7 +6,7 @@ gradlePlugin {
     plugins {
         register("build-jvm") {
             id = "build-jvm"
-            implementationClass = "ru.otus.otuskotlin.marketplace.plugin.BuildPluginJvm"
+            implementationClass = "ru.otus.otuskotlin.plugin.BuildPluginJvm"
         }
     }
 }
