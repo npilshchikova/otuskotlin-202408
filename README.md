@@ -23,10 +23,11 @@
 ## Документация
 
 1. Маркетинг и аналитика
-    - [Целевая аудитория](./docs/01-target-audience.md)
-    - [Стейкхолдеры](./docs/02-stakeholders.md)
-    - [Пользовательские истории](./docs/03-user-stories.md)
-    - [Нефункциональные требования](./docs/04-nonfunctional-requirements)
+    - [Целевая аудитория](docs/01-marketing/01-target-audience.md)
+    - [Стейкхолдеры](docs/01-marketing/02-stakeholders.md)
+    - [Пользовательские истории](docs/01-marketing/03-user-stories.md)
 2. DevOps
 3. Архитектура
+    - [Описание API](docs/03-architecture/01-api.md)
+    - [Компонентная схема](docs/03-architecture/02-architecture.md)
 4. Тесты
