@@ -27,6 +27,7 @@
     - [Стейкхолдеры](docs/01-marketing/02-stakeholders.md)
     - [Пользовательские истории](docs/01-marketing/03-user-stories.md)
 2. DevOps
+    - [Файлы сборки](./deploy)
 3. Архитектура
     - [Описание API](docs/03-architecture/01-api.md)
     - [Компонентная схема](docs/03-architecture/02-architecture.md)
