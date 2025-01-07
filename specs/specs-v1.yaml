@@ -24,15 +24,12 @@ paths:
       requestBody:
         description: Request body
         content:
-          multipart/form-data:
+          # here should be used multipart/form-data value
+          # since we receive json file as a report content field along with key-value pairs
+          # but ReportCreateRequest object is generated only when application/json content is set
+          application/json:
             schema:
-              allOf:
-                - $ref: '#/components/schemas/ReportCreateRequest'
-                - type: object
-                  properties:
-                    content:
-                      type: string
-                      format: binary
+              $ref: '#/components/schemas/ReportCreateRequest'
         required: true
       responses:
         200:
@@ -59,15 +56,12 @@ paths:
         200:
           description: Success
           content:
-            multipart/form-data:
+            # here should be used multipart/form-data value
+            # since we send json file as a report content field along with key-value pairs
+            # but ReportCreateRequest object is generated only when application/json content is set
+            application/json:
               schema:
-                allOf:
-                  - $ref: '#/components/schemas/ReportReadResponse'
-                  - type: object
-                    properties:
-                      content:
-                        type: string
-                        format: binary
+                $ref: '#/components/schemas/ReportReadResponse'
 
   /report/delete:
     post:
@@ -211,6 +205,11 @@ components:
       description: event date and time
       example: '2018-03-20T09:12:28Z'
 
+    ReportContent:
+      type: string
+      format: binary
+      description: json file with actual report content
+
     BaseReport:
       type: object
       description: common properties for report objects
@@ -222,6 +221,14 @@ components:
         timestamp:
           $ref: '#/components/schemas/Timestamp'
 
+    ReportCreateObject:
+      allOf:
+        - $ref: '#/components/schemas/BaseReport'
+        - type: object
+          properties:
+            content:
+              $ref: '#/components/schemas/ReportContent'
+
     ReportCreateRequest:
       allOf:
         - $ref: '#/components/schemas/IRequest'
@@ -230,9 +237,6 @@ components:
           properties:
             report:
               $ref: '#/components/schemas/ReportCreateObject'
-
-    ReportCreateObject:
-      $ref: '#/components/schemas/BaseReport'
 
     ReportReadObject:
       allOf:
@@ -370,6 +374,10 @@ components:
       allOf:
         - $ref: '#/components/schemas/IResponse'
         - $ref: '#/components/schemas/ReportResponseSingle'
+        - type: object
+          properties:
+            content:
+              $ref: '#/components/schemas/ReportContent'
 
     ReportDeleteResponse:
       allOf:
