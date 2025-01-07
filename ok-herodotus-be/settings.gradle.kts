@@ -19,4 +19,4 @@ pluginManagement {
     }
 }
 
-include(":ok-herodotus-tmp")
+include(":ok-herodotus-api-v1")

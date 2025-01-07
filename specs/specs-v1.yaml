@@ -1,0 +1,431 @@
+openapi: 3.0.4
+info:
+  title: 'Herodotus'
+  description: simple tool to collect, store and summarise application event reports
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:8080/v1
+
+tags:
+  - name: report
+    description: Application event report
+
+paths:
+  /report/create:
+    post:
+      tags:
+        - report
+      summary: Create new report record
+      operationId: reportCreate
+      requestBody:
+        description: Request body
+        content:
+          multipart/form-data:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/ReportCreateRequest'
+                - type: object
+                  properties:
+                    content:
+                      type: string
+                      format: binary
+        required: true
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReportCreateResponse'
+
+  /report/read:
+    post:
+      tags:
+        - report
+      summary: Read report content
+      operationId: reportRead
+      requestBody:
+        description: Request body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReportReadRequest'
+        required: true
+      responses:
+        200:
+          description: Success
+          content:
+            multipart/form-data:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/ReportReadResponse'
+                  - type: object
+                    properties:
+                      content:
+                        type: string
+                        format: binary
+
+  /report/delete:
+    post:
+      tags:
+        - report
+      summary: Delete report
+      operationId: reportDelete
+      requestBody:
+        description: Request body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReportDeleteRequest'
+        required: true
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReportDeleteResponse'
+
+  /report/search:
+    post:
+      tags:
+        - report
+      summary: Search for reports
+      operationId: reportSearch
+      requestBody:
+        description: Request body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReportSearchRequest'
+        required: true
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReportSearchResponse'
+
+  /report/resume:
+    post:
+      tags:
+        - report
+      summary: Summary data request for a group of reports
+      operationId: reportResume
+      requestBody:
+        description: Request body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReportResumeRequest'
+        required: true
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReportResumeResponse'
+
+components:
+  schemas:
+
+    IRequest:
+      type: object
+      description: Базовый интерфейс для всех запросов
+      properties:
+        requestType:
+          type: string
+          description: Поле-дескриминатор для вычисления типа запроса
+          example: create
+      discriminator:
+        propertyName: requestType
+        mapping:
+          create: '#/components/schemas/ReportCreateRequest'
+          read:   '#/components/schemas/ReportReadRequest'
+          delete: '#/components/schemas/ReportDeleteRequest'
+          search: '#/components/schemas/ReportSearchRequest'
+          resume: '#/components/schemas/ReportResumeRequest'
+
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+        group:
+          type: string
+        field:
+          type: string
+        message:
+          type: string
+
+    ResponseResult:
+      type: string
+      enum:
+        - success
+        - error
+
+    IResponse:
+      type: object
+      description: Базовый интерфейс для всех ответов
+      properties:
+        responseType:
+          type: string
+          description: Поле-дескриминатор для вычисления типа запроса
+          example: create
+        result:
+          $ref: '#/components/schemas/ResponseResult'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+      discriminator:
+        propertyName: responseType
+        mapping:
+          create: '#/components/schemas/ReportCreateResponse'
+          read:   '#/components/schemas/ReportReadResponse'
+          delete: '#/components/schemas/ReportDeleteResponse'
+          search: '#/components/schemas/ReportSearchResponse'
+          resume: '#/components/schemas/ReportResumeResponse'
+
+    ReportId:
+      type: string
+      description: Unique report identifier
+
+    ApplicationId:
+      type: string
+      description: Unique application identifier
+
+    Event:
+      type: string
+      description: client application event as a cause for report
+
+    Timestamp:
+      type: string
+      format: date-time
+      description: event date and time
+      example: '2018-03-20T09:12:28Z'
+
+    BaseReport:
+      type: object
+      description: common properties for report objects
+      properties:
+        applicationId:
+          $ref: '#/components/schemas/ApplicationId'
+        event:
+          $ref: '#/components/schemas/Event'
+        timestamp:
+          $ref: '#/components/schemas/Timestamp'
+
+    ReportCreateObject:
+      allOf:
+        - $ref: '#/components/schemas/BaseReport'
+
+    ReportCreateRequest:
+      allOf:
+        - $ref: '#/components/schemas/IRequest'
+        - $ref: '#/components/schemas/RequestDebug'
+        - type: object
+          properties:
+            report:
+              $ref: '#/components/schemas/ReportCreateObject'
+
+    ReportReadObject:
+      allOf:
+        - type: object
+          properties:
+            reportId:
+              $ref: '#/components/schemas/ReportId'
+
+    ReportReadRequest:
+      allOf:
+        - $ref: '#/components/schemas/IRequest'
+        - $ref: '#/components/schemas/RequestDebug'
+        - type: object
+          properties:
+            report:
+              $ref: '#/components/schemas/ReportReadObject'
+
+    ReportDeleteObject:
+      allOf:
+        - type: object
+          properties:
+            reportId:
+              $ref: '#/components/schemas/ReportId'
+
+    ReportDeleteRequest:
+      allOf:
+        - $ref: '#/components/schemas/IRequest'
+        - $ref: '#/components/schemas/RequestDebug'
+        - type: object
+          properties:
+            report:
+              $ref: '#/components/schemas/ReportDeleteObject'
+
+    ReportSearchParams:
+      type: object
+      description: search parameters
+      properties:
+        applicationId:
+          $ref: '#/components/schemas/ApplicationId'
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/Event'
+        searchFields:
+          type: array
+          items:
+            type: object
+            properties:
+              fieldName:
+                type: string
+                description: json field name to search in
+              value:
+                type: number
+                description: numeric value to search by
+              searchString:
+                type: string
+                description: string value to search by
+              action:
+                type: string
+                description: required action to perform search by numeric or string value
+                enum:
+                  - contains
+                  - equals
+                  - more
+                  - less
+          description: array of field names with search parameters to look at
+
+    ReportSearchRequest:
+      allOf:
+        - $ref: '#/components/schemas/IRequest'
+        - $ref: '#/components/schemas/RequestDebug'
+        - type: object
+          properties:
+            params:
+              $ref: '#/components/schemas/ReportSearchParams'
+
+    ReportResumeParams:
+      type: object
+      description: summary calculation parameters
+      properties:
+        fieldName:
+          type: string
+          description: json field name to create summary
+
+    ReportResumeRequest:
+      allOf:
+        - $ref: '#/components/schemas/IRequest'
+        - $ref: '#/components/schemas/RequestDebug'
+        - type: object
+          properties:
+            searchParams:
+              $ref: '#/components/schemas/ReportSearchParams'
+            resumeParams:
+              $ref: '#/components/schemas/ReportResumeParams'
+
+    ReportResponseObject:
+      allOf:
+        - $ref: '#/components/schemas/BaseReport'
+        - type: object
+          description: Объект, который возвращается в ответе бэкенда
+          properties:
+            reportId:
+              $ref: '#/components/schemas/ReportId'
+
+    ReportResponseSingle:
+      allOf:
+        - type: object
+          description: Ответ с одним объектом
+          properties:
+            report:
+              $ref: '#/components/schemas/ReportResponseObject'
+
+    ReportResponseMulti:
+      allOf:
+        - type: object
+          description: Список найденных объектов
+          properties:
+            reports:
+              type: array
+              items:
+                $ref: '#/components/schemas/ReportResponseObject'
+
+    ReportCreateResponse:
+      allOf:
+        - $ref: '#/components/schemas/IResponse'
+        - $ref: '#/components/schemas/ReportResponseSingle'
+
+    ReportReadResponse:
+      allOf:
+        - $ref: '#/components/schemas/IResponse'
+        - $ref: '#/components/schemas/ReportResponseSingle'
+
+    ReportDeleteResponse:
+      allOf:
+        - $ref: '#/components/schemas/IResponse'
+        - $ref: '#/components/schemas/ReportResponseSingle'
+
+    ReportSearchResponse:
+      allOf:
+        - $ref: '#/components/schemas/IResponse'
+        - $ref: '#/components/schemas/ReportResponseMulti'
+
+    ReportResumeResponse:
+      allOf:
+        - $ref: '#/components/schemas/IResponse'
+        - type: object
+          description: summary object for a set of reports
+          properties:
+            itemsNumber:
+              type: number
+            summary:
+              type: array
+              items:
+                type: object
+                properties:
+                  fieldValue:
+                    type: string
+                  event:
+                    $ref: '#/components/schemas/Event'
+                  timestamp:
+                    $ref: '#/components/schemas/Timestamp'
+
+    # STUBS ======================
+    RequestDebugMode:
+      type: string
+      enum:
+        - prod
+        - test
+        - stub
+
+    RequestDebug:
+      type: object
+      properties:
+        debug:
+          $ref: '#/components/schemas/Debug'
+
+    Debug:
+      type: object
+      properties:
+        mode:
+          $ref: '#/components/schemas/RequestDebugMode'
+        stub:
+          $ref: '#/components/schemas/RequestDebugStubs'
+
+    RequestDebugStubs:
+      type: string
+      description: Перечисления всех стабов
+      enum:
+        - success
+        - notFound
+        - badApplication
+        - unknownEvent
+        - invalidDateTime
+        - cannotDelete
+        - badSearchString
