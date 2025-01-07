@@ -159,7 +159,7 @@ components:
           type: string
         group:
           type: string
-        field:
+        fieldName:
           type: string
         message:
           type: string
@@ -222,10 +222,6 @@ components:
         timestamp:
           $ref: '#/components/schemas/Timestamp'
 
-    ReportCreateObject:
-      allOf:
-        - $ref: '#/components/schemas/BaseReport'
-
     ReportCreateRequest:
       allOf:
         - $ref: '#/components/schemas/IRequest'
@@ -234,6 +230,9 @@ components:
           properties:
             report:
               $ref: '#/components/schemas/ReportCreateObject'
+
+    ReportCreateObject:
+      $ref: '#/components/schemas/BaseReport'
 
     ReportReadObject:
       allOf:
@@ -267,6 +266,31 @@ components:
             report:
               $ref: '#/components/schemas/ReportDeleteObject'
 
+    SearchAction:
+      type: string
+      description: required action to perform search by numeric or string value
+      enum:
+        - contains
+        - equals
+        - more
+        - less
+
+    ReportSearchField:
+      type: object
+      description: search by json field parameters
+      properties:
+        fieldName:
+          type: string
+          description: json field name to search in
+        value:
+          type: number
+          description: numeric value to search by
+        searchString:
+          type: string
+          description: string value to search by
+        action:
+          $ref: '#/components/schemas/SearchAction'
+
     ReportSearchParams:
       type: object
       description: search parameters
@@ -280,26 +304,7 @@ components:
         searchFields:
           type: array
           items:
-            type: object
-            properties:
-              fieldName:
-                type: string
-                description: json field name to search in
-              value:
-                type: number
-                description: numeric value to search by
-              searchString:
-                type: string
-                description: string value to search by
-              action:
-                type: string
-                description: required action to perform search by numeric or string value
-                enum:
-                  - contains
-                  - equals
-                  - more
-                  - less
-          description: array of field names with search parameters to look at
+            $ref: '#/components/schemas/ReportSearchField'
 
     ReportSearchRequest:
       allOf:
@@ -376,6 +381,17 @@ components:
         - $ref: '#/components/schemas/IResponse'
         - $ref: '#/components/schemas/ReportResponseMulti'
 
+    ReportResumeSummaryValue:
+      type: object
+      description: summary item
+      properties:
+        fieldValue:
+          type: string
+        event:
+          $ref: '#/components/schemas/Event'
+        timestamp:
+          $ref: '#/components/schemas/Timestamp'
+
     ReportResumeResponse:
       allOf:
         - $ref: '#/components/schemas/IResponse'
@@ -387,14 +403,7 @@ components:
             summary:
               type: array
               items:
-                type: object
-                properties:
-                  fieldValue:
-                    type: string
-                  event:
-                    $ref: '#/components/schemas/Event'
-                  timestamp:
-                    $ref: '#/components/schemas/Timestamp'
+                $ref: '#/components/schemas/ReportResumeSummaryValue'
 
     # STUBS ======================
     RequestDebugMode:

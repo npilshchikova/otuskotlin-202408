@@ -16,7 +16,6 @@ openApiGenerate {
     packageName.set(openapiGroup)
     apiPackage.set("$openapiGroup.api")
     modelPackage.set("$openapiGroup.models")
-    invokerPackage.set("$openapiGroup.invoker")
     inputSpec.set(rootProject.ext["spec-v1"] as String)
 
     /**
@@ -45,6 +44,7 @@ openApiGenerate {
 dependencies {
     implementation(kotlin("stdlib"))
     implementation(libs.kotlinx.serialization.json)
+    implementation(libs.kotlinx.datetime)
     testImplementation(kotlin("test-junit"))
 }
 

@@ -1,0 +1,2 @@
+class RequestV1SerializationTest {
+}
