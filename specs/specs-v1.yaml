@@ -24,9 +24,6 @@ paths:
       requestBody:
         description: Request body
         content:
-          # here should be used multipart/form-data value
-          # since we receive json file as a report content field along with key-value pairs
-          # but ReportCreateRequest object is generated only when application/json content is set
           application/json:
             schema:
               $ref: '#/components/schemas/ReportCreateRequest'
@@ -56,9 +53,6 @@ paths:
         200:
           description: Success
           content:
-            # here should be used multipart/form-data value
-            # since we send json file as a report content field along with key-value pairs
-            # but ReportCreateRequest object is generated only when application/json content is set
             application/json:
               schema:
                 $ref: '#/components/schemas/ReportReadResponse'
@@ -207,8 +201,8 @@ components:
 
     ReportContent:
       type: string
-      format: binary
-      description: json file with actual report content
+      format: json
+      description: report content in json format
 
     BaseReport:
       type: object
@@ -414,7 +408,7 @@ components:
                 $ref: '#/components/schemas/ReportResumeSummaryValue'
 
     # STUBS ======================
-    RequestDebugMode:
+    DebugMode:
       type: string
       enum:
         - prod
@@ -431,18 +425,16 @@ components:
       type: object
       properties:
         mode:
-          $ref: '#/components/schemas/RequestDebugMode'
+          $ref: '#/components/schemas/DebugMode'
         stub:
-          $ref: '#/components/schemas/RequestDebugStubs'
+          $ref: '#/components/schemas/DebugStubs'
 
-    RequestDebugStubs:
+    DebugStubs:
       type: string
       description: Перечисления всех стабов
       enum:
         - success
         - notFound
-        - badApplication
-        - unknownEvent
-        - invalidDateTime
         - cannotDelete
-        - badSearchString
+        - valueError
+        - missingData
