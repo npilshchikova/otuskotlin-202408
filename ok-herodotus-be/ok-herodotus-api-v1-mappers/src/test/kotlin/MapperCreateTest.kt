@@ -9,7 +9,7 @@ import ru.otus.otuskotlin.herodotus.common.models.*
 import ru.otus.otuskotlin.herodotus.common.stubs.Stubs
 import kotlin.test.assertEquals
 
-class MapperTest {
+class MapperCreateTest {
     @Test
     fun fromTransport() {
         val request = ReportCreateRequest(
