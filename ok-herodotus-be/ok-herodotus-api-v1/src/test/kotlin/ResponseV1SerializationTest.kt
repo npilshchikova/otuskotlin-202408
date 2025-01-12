@@ -1,4 +1,3 @@
-import kotlinx.datetime.Clock
 import ru.otus.otuskotlin.herodotus.api.v1.apiV1ResponseDeserialize
 import ru.otus.otuskotlin.herodotus.api.v1.apiV1ResponseSerialize
 import ru.otus.otuskotlin.herodotus.api.v1.models.*
@@ -13,7 +12,7 @@ class ResponseV1SerializationTest {
         report = ReportResponseObject(
             applicationId = "TestApp",
             event = "New sample",
-            timestamp = Clock.System.now(),
+            timestamp = "2018-03-20T09:12:28Z",
             reportId = "0001",
         )
     )

@@ -1,4 +1,3 @@
-import kotlinx.datetime.Clock
 import ru.otus.otuskotlin.herodotus.api.v1.apiV1RequestDeserialize
 import ru.otus.otuskotlin.herodotus.api.v1.apiV1RequestSerialize
 import ru.otus.otuskotlin.herodotus.api.v1.models.*
@@ -16,7 +15,7 @@ class RequestV1SerializationTest {
         report = ReportCreateObject(
             applicationId = "TestApp",
             event = "New sample",
-            timestamp = Clock.System.now(),
+            timestamp = "2018-03-20T09:12:28Z",
             content = """
                 { 
                     "organization": "ParseqLab",
@@ -48,7 +47,7 @@ class RequestV1SerializationTest {
     @Test
     fun deserializeNaked() {
         val jsonString = """
-            { "applicationId": null }
+            { "requestType": "create" }
         """.trimIndent()
         val obj = apiV1RequestDeserialize<ReportCreateRequest>(jsonString)
 
