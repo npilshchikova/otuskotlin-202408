@@ -20,3 +20,4 @@ pluginManagement {
 }
 
 include(":ok-herodotus-api-v1")
+include(":ok-herodotus-common")
