@@ -5,19 +5,29 @@ plugins {
 group = "ru.otus.otuskotlin.herodotus"
 version = "0.0.1"
 
-tasks {
-    create("build") {
-        group = "build"
-        dependsOn(project(":ok-herodotus-tmp").getTasksByName("build",false))
+allprojects {
+    repositories {
+        mavenCentral()
     }
+}
 
-    create("check") {
-        group = "verification"
-        subprojects.forEach { proj ->
-            println("$proj")
-            proj.getTasksByName("check", false).also {
-                this@create.dependsOn(it)
-            }
+subprojects {
+    group = rootProject.group
+    version = rootProject.version
+}
+
+ext {
+    val specDir = layout.projectDirectory.dir("../specs")
+    set("spec-v1", specDir.file("specs-v1.yaml").toString())
+}
+
+tasks {
+    arrayOf("build", "clean", "check").forEach { task ->
+        create(task) {
+            group = "build"
+            dependsOn(
+                subprojects.map { it.getTasksByName(task, false) }
+            )
         }
     }
 }

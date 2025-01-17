@@ -19,4 +19,6 @@ pluginManagement {
     }
 }
 
-include(":ok-herodotus-tmp")
+include(":ok-herodotus-api-v1")
+include(":ok-herodotus-common")
+include(":ok-herodotus-api-v1-mappers")
