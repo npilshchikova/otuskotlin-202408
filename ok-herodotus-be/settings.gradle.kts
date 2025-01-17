@@ -22,3 +22,4 @@ pluginManagement {
 include(":ok-herodotus-api-v1")
 include(":ok-herodotus-common")
 include(":ok-herodotus-api-v1-mappers")
+include(":ok-herodotus-app")
