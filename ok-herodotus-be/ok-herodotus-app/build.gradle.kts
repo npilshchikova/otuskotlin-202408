@@ -48,8 +48,8 @@ dependencies {
 //    implementation(project(":ok-herodotus-stubs"))
 
     // logging
-//    implementation(project(":ok-herodotus-api-log1"))
-//    implementation("ru.otus.otuskotlin.herodotus.libs:ok-herodotus-lib-logging")
+    implementation(project(":ok-herodotus-api-log1"))
+    implementation("ru.otus.otuskotlin.herodotus.libs:ok-herodotus-lib-logging")
 
     testImplementation(kotlin("test-junit"))
     testImplementation(libs.ktor.server.test)
