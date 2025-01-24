@@ -42,10 +42,10 @@ dependencies {
     implementation(project(":ok-herodotus-api-v1-mappers"))
 
     // logic
-//    implementation(project(":ok-herodotus-biz"))
+    implementation(project(":ok-herodotus-biz"))
 
     // stubs
-//    implementation(project(":ok-herodotus-stubs"))
+    implementation(project(":ok-herodotus-stubs"))
 
     // logging
     implementation(project(":ok-herodotus-api-log1"))
