@@ -3,6 +3,9 @@ plugins {
     alias(libs.plugins.openapi.generator)
 }
 
+group = rootProject.group
+version = rootProject.version
+
 sourceSets {
     main {
         java.srcDir(layout.buildDirectory.dir("generate-resources/main/src/main/kotlin"))
@@ -10,12 +13,12 @@ sourceSets {
 }
 
 openApiGenerate {
-    val openapiGroup = "${rootProject.group}.api.v1"
+    val openapiGroup = "${rootProject.group}.api.log1"
     generatorName.set("kotlin")
     packageName.set(openapiGroup)
     apiPackage.set("$openapiGroup.api")
     modelPackage.set("$openapiGroup.models")
-    inputSpec.set(rootProject.ext["spec-v1"] as String)
+    inputSpec.set(rootProject.ext["spec-log1"] as String)
 
     /**
      * Use only models
@@ -43,13 +46,16 @@ openApiGenerate {
 dependencies {
     implementation(kotlin("stdlib"))
     implementation(libs.kotlinx.datetime)
+    implementation(libs.kotlinx.serialization.json)
     implementation(libs.jackson.kotlin)
     implementation(libs.jackson.datatype)
+    implementation(project(":ok-herodotus-common"))
+
     testImplementation(kotlin("test-junit"))
 }
 
 tasks {
-    compileKotlin {
-        dependsOn(openApiGenerate)
+    filter { it.name.startsWith("compile") }.forEach {
+        it.dependsOn(openApiGenerate)
     }
 }

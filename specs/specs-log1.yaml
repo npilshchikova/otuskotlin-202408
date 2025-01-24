@@ -18,6 +18,8 @@ components:
       properties:
         messageTime:
           type: string
+        logId:
+          type: string
         source:
           type: string
         report:
@@ -97,12 +99,6 @@ components:
     ReportResumeLog:
       title: log model for resume request
       properties:
-        applicationId:
-          type: string
-        events:
-          type: string
-        searchFields:
-          type: string
         resumeFieldName:
           type: string
 
