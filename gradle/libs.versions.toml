@@ -4,10 +4,12 @@ jvm-language = "21"
 kotlin = "2.0.20"
 kotlinx-datetime = "0.5.0"
 kotlinx-serialization = "1.6.3"
+coroutines = "1.9.0"
 jackson = "2.16.1"
 openapi-generator = "7.3.0"
 ktor = "3.0.3"
 muschko = "9.4.0"
+logback = "1.5.3"
 
 [libraries]
 plugin-kotlin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
@@ -15,6 +17,14 @@ kotlinx-datetime = {module = "org.jetbrains.kotlinx:kotlinx-datetime", version.r
 kotlinx-serialization-json = {module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization"}
 jackson-kotlin = {module = "com.fasterxml.jackson.module:jackson-module-kotlin", version.ref = "jackson"}
 jackson-datatype = {module = "com.fasterxml.jackson.datatype:jackson-datatype-jsr310", version.ref = "jackson"}
+coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
+coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
+
+# Logging
+logback = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
+logback-appenders = { module = "com.sndyuk:logback-more-appenders", version = "1.8.8" }
+logback-logstash = { module = "net.logstash.logback:logstash-logback-encoder", version = "7.4" }
+logger-fluentd = { module = "org.fluentd:fluent-logger", version = "0.3.4" }
 
 # Ktor
 ktor-network = { module = "io.ktor:ktor-network", version.ref = "ktor" }
