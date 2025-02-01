@@ -1,11 +1,9 @@
-package ru.otus.otuskotlin.herodotus.app.commonTest
+package ru.otus.otuskotlin.herodotus.app.common
 
 import kotlinx.coroutines.test.runTest
 import ru.otus.otuskotlin.herodotus.api.v1.mappers.fromTransport
 import ru.otus.otuskotlin.herodotus.api.v1.mappers.toTransportReport
 import ru.otus.otuskotlin.herodotus.api.v1.models.*
-import ru.otus.otuskotlin.herodotus.app.common.HerodotusAppSettings
-import ru.otus.otuskotlin.herodotus.app.common.controllerHelper
 import ru.otus.otuskotlin.herodotus.biz.ReportProcessor
 import ru.otus.otuskotlin.herodotus.common.ReportCorSettings
 import kotlin.test.Test
