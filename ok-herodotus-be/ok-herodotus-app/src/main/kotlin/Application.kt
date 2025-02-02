@@ -28,7 +28,5 @@ fun Application.module(
     configureHTTP()
     configureSerialization()
 
-    module(appSettings)
-
     configureRouting(appSettings)
 }

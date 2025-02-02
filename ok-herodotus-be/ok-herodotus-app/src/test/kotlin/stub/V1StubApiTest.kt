@@ -41,7 +41,7 @@ class V1StubApiTest {
     ) { response ->
         val responseObj = response.body<ReportCreateResponse>()
         assertEquals(200, response.status.value)
-        assertEquals("TestApp", responseObj.report?.applicationId)
+        assertEquals("BamAnalyzer", responseObj.report?.applicationId)
     }
 
     @Test
@@ -49,7 +49,7 @@ class V1StubApiTest {
         func = "read",
         request = ReportReadRequest(
             report = ReportReadObject(
-                reportId = "Hmmm"
+                reportId = "BamAnalyzer_NewSample_1"
             ),
             debug = Debug(
                 mode = DebugMode.STUB,
@@ -59,7 +59,7 @@ class V1StubApiTest {
     ) { response ->
         val responseObj = response.body<ReportReadResponse>()
         assertEquals(200, response.status.value)
-        assertEquals("Hmmm", responseObj.report?.reportId)
+        assertEquals("BamAnalyzer_NewSample_1", responseObj.report?.reportId)
     }
 
     @Test
@@ -67,7 +67,7 @@ class V1StubApiTest {
         func = "delete",
         request = ReportDeleteRequest(
             report = ReportDeleteObject(
-                reportId = "Hmmm",
+                reportId = "BamAnalyzer_NewSample_1",
             ),
             debug = Debug(
                 mode = DebugMode.STUB,
@@ -77,14 +77,16 @@ class V1StubApiTest {
     ) { response ->
         val responseObj = response.body<ReportDeleteResponse>()
         assertEquals(200, response.status.value)
-        assertEquals("Hmmm", responseObj.report?.reportId)
+        assertEquals("BamAnalyzer_NewSample_1", responseObj.report?.reportId)
     }
 
     @Test
     fun search() = v1TestApplication(
         func = "search",
         request = ReportSearchRequest(
-            params = ReportSearchParams(),
+            params = ReportSearchParams(
+                applicationId = "BamAnalyzer"
+            ),
             debug = Debug(
                 mode = DebugMode.STUB,
                 stub = DebugStubs.SUCCESS
@@ -93,11 +95,12 @@ class V1StubApiTest {
     ) { response ->
         val responseObj = response.body<ReportSearchResponse>()
         assertEquals(200, response.status.value)
-        assertEquals("Hmmm", responseObj.reports?.first()?.reportId)
+        assertEquals(2, responseObj.reports?.size)
+        assertEquals("BamAnalyzer_NewSample_1", responseObj.reports?.first()?.reportId)
     }
 
     @Test
-    fun offers() = v1TestApplication(
+    fun resume() = v1TestApplication(
         func = "resume",
         request = ReportResumeRequest(
             searchParams = ReportSearchParams(),
@@ -110,7 +113,7 @@ class V1StubApiTest {
     ) { response ->
         val responseObj = response.body<ReportResumeResponse>()
         assertEquals(200, response.status.value)
-        assertEquals(2.0.toBigDecimal(), responseObj.itemsNumber)
+        assertEquals(2.toBigDecimal(), responseObj.itemsNumber)
         assertEquals(2, responseObj.summary?.size)
     }
 

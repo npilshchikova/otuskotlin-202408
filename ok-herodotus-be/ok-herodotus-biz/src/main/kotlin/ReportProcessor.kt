@@ -15,6 +15,9 @@ class ReportProcessor(val corSettings: ReportCorSettings) {
             event = ReportStubSample.event,
             searchFields = emptyList(),
         ).toMutableList()
+        context.resumeResponse = ReportStub.prepareSummary(
+            fieldName = "organization"
+        )
         context.state = JobState.RUNNING
     }
 }
