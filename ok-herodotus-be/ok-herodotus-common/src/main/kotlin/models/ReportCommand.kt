@@ -7,4 +7,6 @@ enum class ReportCommand {
     DELETE,
     SEARCH,
     RESUME,
+    INIT,
+    FINISH,
 }

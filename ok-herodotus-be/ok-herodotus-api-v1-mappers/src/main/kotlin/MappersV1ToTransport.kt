@@ -13,6 +13,12 @@ fun ReportContext.toTransportReport(): IResponse = when (val cmd = command) {
     ReportCommand.DELETE -> toTransportDelete()
     ReportCommand.SEARCH -> toTransportSearch()
     ReportCommand.RESUME -> toTransportResume()
+    ReportCommand.INIT -> toTransportInit()
+    ReportCommand.FINISH -> object: IResponse {
+        override val responseType: String? = null
+        override val result: ResponseResult? = null
+        override val errors: List<Error>? = null
+    }
     ReportCommand.NONE -> throw UnknownReportCommand(cmd)
 }
 
@@ -46,6 +52,11 @@ fun ReportContext.toTransportResume() = ReportResumeResponse(
     errors = errors.toTransportErrors(),
     itemsNumber = resumeResponse.itemsNumber.toBigDecimal(),
     summary = resumeResponse.summary.map { it.toTransportSummary() },
+)
+
+fun ReportContext.toTransportInit() = ReportInitResponse(
+    result = state.toResult(),
+    errors = errors.toTransportErrors(),
 )
 
 private fun ReportSummary.SummaryValue.toTransportSummary(): ReportResumeSummaryValue = ReportResumeSummaryValue(

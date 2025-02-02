@@ -35,6 +35,7 @@ dependencies {
     implementation(libs.ktor.server.headers.caching)
     implementation(libs.ktor.serialization.jackson)
     implementation(libs.ktor.server.calllogging)
+    implementation(libs.ktor.server.websocket)
 
     // transport models
     implementation(project(":ok-herodotus-common"))
