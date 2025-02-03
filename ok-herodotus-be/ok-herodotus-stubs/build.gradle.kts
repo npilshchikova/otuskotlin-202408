@@ -9,7 +9,7 @@ dependencies {
     implementation(kotlin("stdlib"))
     implementation(libs.kotlinx.datetime)
     implementation(libs.kotlinx.serialization.json)
-    api("ru.otus.otuskotlin.herodotus.libs:ok-herodotus-lib-logging")
+    implementation(project(":ok-herodotus-common"))
 
     testImplementation(kotlin("test-junit"))
 }

@@ -4,8 +4,12 @@ jvm-language = "21"
 kotlin = "2.0.20"
 kotlinx-datetime = "0.5.0"
 kotlinx-serialization = "1.6.3"
+coroutines = "1.9.0"
 jackson = "2.16.1"
 openapi-generator = "7.3.0"
+ktor = "3.0.3"
+muschko = "9.4.0"
+logback = "1.5.3"
 
 [libraries]
 plugin-kotlin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
@@ -13,7 +17,35 @@ kotlinx-datetime = {module = "org.jetbrains.kotlinx:kotlinx-datetime", version.r
 kotlinx-serialization-json = {module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization"}
 jackson-kotlin = {module = "com.fasterxml.jackson.module:jackson-module-kotlin", version.ref = "jackson"}
 jackson-datatype = {module = "com.fasterxml.jackson.datatype:jackson-datatype-jsr310", version.ref = "jackson"}
+coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
+coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
+
+# Logging
+logback = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
+logback-appenders = { module = "com.sndyuk:logback-more-appenders", version = "1.8.8" }
+logback-logstash = { module = "net.logstash.logback:logstash-logback-encoder", version = "7.4" }
+logger-fluentd = { module = "org.fluentd:fluent-logger", version = "0.3.4" }
+
+# Ktor
+ktor-network = { module = "io.ktor:ktor-network", version.ref = "ktor" }
+ktor-serialization-jackson = { module = "io.ktor:ktor-serialization-jackson", version.ref = "ktor" }
+ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
+ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" }
+ktor-client-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
+ktor-server-core = { module = "io.ktor:ktor-server-core", version.ref = "ktor" }
+ktor-server-netty = { module = "io.ktor:ktor-server-netty", version.ref = "ktor" }
+ktor-server-headers-response = { module = "io.ktor:ktor-server-auto-head-response", version.ref = "ktor" }
+ktor-server-headers-caching = { module = "io.ktor:ktor-server-caching-headers", version.ref = "ktor" }
+ktor-server-headers-default = { module = "io.ktor:ktor-server-default-headers", version.ref = "ktor" }
+ktor-server-cors = { module = "io.ktor:ktor-server-cors", version.ref = "ktor" }
+ktor-server-yaml = { module = "io.ktor:ktor-server-config-yaml", version.ref = "ktor" }
+ktor-server-negotiation = { module = "io.ktor:ktor-server-content-negotiation", version.ref = "ktor" }
+ktor-server-calllogging = { module = "io.ktor:ktor-server-call-logging", version.ref = "ktor" }
+ktor-server-websocket = { module = "io.ktor:ktor-server-websockets", version.ref = "ktor" }
+ktor-server-test = { module = "io.ktor:ktor-server-test-host", version.ref = "ktor" }
 
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 openapi-generator = {id = "org.openapi.generator", version.ref = "openapi-generator"}
+ktor = { id = "io.ktor.plugin", version.ref = "ktor" }
+muschko-remote = { id = "com.bmuschko.docker-remote-api", version.ref = "muschko" }

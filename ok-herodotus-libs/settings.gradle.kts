@@ -1,4 +1,4 @@
-rootProject.name = "ok-herodotus-be"
+rootProject.name = "ok-herodotus-libs"
 
 dependencyResolutionManagement {
     versionCatalogs {
@@ -19,10 +19,8 @@ pluginManagement {
     }
 }
 
-include(":ok-herodotus-api-v1")
-include(":ok-herodotus-api-v1-mappers")
-include(":ok-herodotus-api-log1")
-include(":ok-herodotus-common")
-include(":ok-herodotus-app")
-include(":ok-herodotus-stubs")
-include(":ok-herodotus-biz")
+plugins {
+    id("org.gradle.toolchains.foojay-resolver-convention") version "0.5.0"
+}
+
+include(":ok-herodotus-lib-logging")

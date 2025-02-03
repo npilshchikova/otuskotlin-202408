@@ -180,6 +180,7 @@ components:
           delete: '#/components/schemas/ReportDeleteResponse'
           search: '#/components/schemas/ReportSearchResponse'
           resume: '#/components/schemas/ReportResumeResponse'
+          init: '#/components/schemas/ReportInitResponse'
 
     ReportId:
       type: string
@@ -406,6 +407,10 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/ReportResumeSummaryValue'
+
+    ReportInitResponse:
+      allOf:
+        - $ref: '#/components/schemas/IResponse'
 
     # STUBS ======================
     DebugMode:

@@ -5,3 +5,4 @@ rootProject.name = "otuskotlin-202408"
 
 includeBuild("lessons")
 includeBuild("ok-herodotus-be")
+includeBuild("ok-herodotus-libs")

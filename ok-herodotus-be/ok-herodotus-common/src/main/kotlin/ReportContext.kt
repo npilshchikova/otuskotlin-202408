@@ -3,6 +3,7 @@ package ru.otus.otuskotlin.herodotus.common
 import kotlinx.datetime.Instant
 import ru.otus.otuskotlin.herodotus.common.models.*
 import ru.otus.otuskotlin.herodotus.common.stubs.Stubs
+import ru.otus.otuskotlin.herodotus.common.ws.WsSession
 
 data class ReportContext(
     var command: ReportCommand = ReportCommand.NONE,
@@ -11,6 +12,7 @@ data class ReportContext(
 
     var workMode: WorkMode = WorkMode.PROD,
     var stubCase: Stubs = Stubs.NONE,
+    var wsSession: WsSession = WsSession.NONE,
 
     var requestId: RequestId = RequestId.NONE,
     var timeStart: Instant = Instant.NONE,

@@ -1,0 +1,123 @@
+openapi: 3.0.4
+info:
+  title: Herodotus log models
+  description: Models for logging services
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+
+paths: {}
+
+components:
+  schemas:
+    CommonLogModel:
+      title: Общая модель лога
+      description: Общая модель лога для всех микросервисов системы
+      type: object
+      properties:
+        messageTime:
+          type: string
+        logId:
+          type: string
+        source:
+          type: string
+        report:
+          $ref: '#/components/schemas/ReportLogModel'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorLogModel'
+
+    ReportLogModel:
+      title: Модель лога для микросервиса Herodotus
+      type: object
+      properties:
+        requestId:
+          type: string
+        operation:
+          type: string
+          enum:
+            - create
+            - read
+            - delete
+            - search
+            - resume
+            - init
+            - finish
+        requestReport:
+          $ref: '#/components/schemas/ReportLog'
+        requestSearch:
+          $ref: '#/components/schemas/ReportSearchLog'
+        requestResume:
+          $ref: '#/components/schemas/ReportResumeLog'
+        responseReport:
+          $ref: '#/components/schemas/ReportLog'
+        responseReports:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReportLog'
+        responseSummary:
+          $ref: "#/components/schemas/ReportSummaryLog"
+
+    ErrorLogModel:
+      title: Модель лога для ошибки
+      type: object
+      properties:
+        message:
+          type: string
+        field:
+          type: string
+        code:
+          type: string
+        level:
+          type: string
+
+    ReportLog:
+      title: client report log model
+      type: object
+      properties:
+        applicationId:
+          type: string
+        event:
+          type: string
+        timestamp:
+          type: string
+        content:
+          type: string
+
+    ReportSearchLog:
+      title: log model for filter request
+      properties:
+        applicationId:
+          type: string
+        events:
+          type: string
+        searchFields:
+          type: string
+
+    ReportResumeLog:
+      title: log model for resume request
+      properties:
+        resumeFieldName:
+          type: string
+
+    ReportSummaryLogItem:
+      title: log model for report summary response item
+      properties:
+        fieldValue:
+          type: string
+        event:
+          type: string
+        timestamp:
+          type: string
+
+    ReportSummaryLog:
+      title: log model for reports summary response
+      properties:
+        itemsNumber:
+          type: string
+        summary:
+          type: array
+          items:
+            $ref: "#/components/schemas/ReportSummaryLogItem"
