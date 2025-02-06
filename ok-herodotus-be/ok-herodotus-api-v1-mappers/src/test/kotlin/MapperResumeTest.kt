@@ -5,7 +5,7 @@ import org.junit.Test
 import ru.otus.otuskotlin.herodotus.api.v1.models.*
 import ru.otus.otuskotlin.herodotus.common.ReportContext
 import ru.otus.otuskotlin.herodotus.common.models.*
-import ru.otus.otuskotlin.herodotus.common.stubs.Stubs
+import ru.otus.otuskotlin.herodotus.common.stubs.ReportStubs
 import java.math.BigDecimal
 import kotlin.test.assertContains
 import kotlin.test.assertEquals
@@ -38,7 +38,7 @@ class MapperResumeTest {
         val context = ReportContext()
         context.fromTransport(request)
 
-        assertEquals(Stubs.SUCCESS, context.stubCase)
+        assertEquals(ReportStubs.SUCCESS, context.stubCase)
         assertEquals(WorkMode.STUB, context.workMode)
         assertEquals(ApplicationId("TestApp"), context.reportFilterRequest.applicationId)
         assertEquals(2, context.reportFilterRequest.events.size)

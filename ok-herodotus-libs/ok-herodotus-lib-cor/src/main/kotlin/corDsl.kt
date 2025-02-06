@@ -50,7 +50,7 @@ interface ICorWorkerDsl<T> : ICorExecDsl<T> {
  *  }
  * ```
  */
-fun <T> rootChain(function: ICorChainDsl<T>.() -> Unit): ICorChainDsl<T> = CorChainDsl<T>().apply(function)
+fun <T> rootChain(function: ICorChainDsl<T>.() -> Unit) = CorChainDsl<T>().apply(function).build()
 
 
 /**

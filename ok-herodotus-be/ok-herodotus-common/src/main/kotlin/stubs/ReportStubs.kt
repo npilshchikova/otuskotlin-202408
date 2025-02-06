@@ -1,11 +1,11 @@
 package ru.otus.otuskotlin.herodotus.common.stubs
 
-enum class Stubs {
+enum class ReportStubs {
     NONE,
     SUCCESS,
-    NOT_FOUND,
+    UNKNOWN_APPLICATION,
+    UNKNOWN_EVENT,
     CANNOT_DELETE,
-    MISSING_DATA,
-    VALUE_ERROR,
+    NOT_FOUND,
     DB_ERROR,
 }

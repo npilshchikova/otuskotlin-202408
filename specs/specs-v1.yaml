@@ -439,7 +439,7 @@ components:
       description: Перечисления всех стабов
       enum:
         - success
+        - unknownApplication
+        - unknownEvent
         - notFound
         - cannotDelete
-        - valueError
-        - missingData

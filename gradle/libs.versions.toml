@@ -25,6 +25,7 @@ logback = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
 logback-appenders = { module = "com.sndyuk:logback-more-appenders", version = "1.8.8" }
 logback-logstash = { module = "net.logstash.logback:logstash-logback-encoder", version = "7.4" }
 logger-fluentd = { module = "org.fluentd:fluent-logger", version = "0.3.4" }
+logging = { module = "ru.otus.otuskotlin.herodotus.libs:ok-herodotus-lib-logging" }
 
 # Ktor
 ktor-network = { module = "io.ktor:ktor-network", version.ref = "ktor" }
@@ -43,6 +44,9 @@ ktor-server-negotiation = { module = "io.ktor:ktor-server-content-negotiation", 
 ktor-server-calllogging = { module = "io.ktor:ktor-server-call-logging", version.ref = "ktor" }
 ktor-server-websocket = { module = "io.ktor:ktor-server-websockets", version.ref = "ktor" }
 ktor-server-test = { module = "io.ktor:ktor-server-test-host", version.ref = "ktor" }
+
+# CoR
+cor = { module = "ru.otus.otuskotlin.herodotus.libs:ok-herodotus-lib-cor" }
 
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }

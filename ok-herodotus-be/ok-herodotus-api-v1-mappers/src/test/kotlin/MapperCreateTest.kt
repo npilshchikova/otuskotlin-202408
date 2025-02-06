@@ -6,7 +6,7 @@ import org.junit.Test
 import ru.otus.otuskotlin.herodotus.api.v1.models.*
 import ru.otus.otuskotlin.herodotus.common.ReportContext
 import ru.otus.otuskotlin.herodotus.common.models.*
-import ru.otus.otuskotlin.herodotus.common.stubs.Stubs
+import ru.otus.otuskotlin.herodotus.common.stubs.ReportStubs
 import kotlin.test.assertEquals
 
 class MapperCreateTest {
@@ -34,7 +34,7 @@ class MapperCreateTest {
         val context = ReportContext()
         context.fromTransport(request)
 
-        assertEquals(Stubs.SUCCESS, context.stubCase)
+        assertEquals(ReportStubs.SUCCESS, context.stubCase)
         assertEquals(WorkMode.STUB, context.workMode)
         assertEquals(ApplicationId("TestApp"), context.reportRequest.applicationId)
         assertEquals(Event("New sample"), context.reportRequest.event)
