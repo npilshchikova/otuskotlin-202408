@@ -7,6 +7,6 @@ import ru.otus.otuskotlin.herodotus.cor.chain
 
 fun ICorChainDsl<ReportContext>.stubs(block: ICorChainDsl<ReportContext>.() -> Unit) = chain {
     block()
-    this.title = "Handle stubs"
+    title = "Handle stubs"
     on { workMode == WorkMode.STUB }
 }

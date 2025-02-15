@@ -21,6 +21,14 @@ data class ReportContext(
     var reportFilterRequest: ReportSearchFilter = ReportSearchFilter.NONE,
     var reportResumeRequest: ReportResumeFilter = ReportResumeFilter.NONE,
 
+    var reportValidating: Report = Report(),
+    var reportFilterValidating: ReportSearchFilter = ReportSearchFilter.NONE,
+    var reportResumeValidating: ReportResumeFilter = ReportResumeFilter.NONE,
+
+    var reportValidated: Report = Report(),
+    var reportFilterValidated: ReportSearchFilter = ReportSearchFilter.NONE,
+    var reportResumeValidated: ReportResumeFilter = ReportResumeFilter.NONE,
+
     var reportResponse: Report = Report(),
     var reportsResponse: MutableList<Report> = mutableListOf(),
     var resumeResponse: ReportSummary = ReportSummary(),
