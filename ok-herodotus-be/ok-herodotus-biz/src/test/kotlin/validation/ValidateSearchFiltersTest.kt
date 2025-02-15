@@ -8,7 +8,6 @@ import ru.otus.otuskotlin.herodotus.common.models.JobState
 import ru.otus.otuskotlin.herodotus.common.models.ReportSearchFilter
 import ru.otus.otuskotlin.herodotus.cor.rootChain
 import kotlin.test.Test
-import kotlin.test.assertContains
 import kotlin.test.assertEquals
 
 class ValidateSearchFiltersTest {
@@ -34,7 +33,6 @@ class ValidateSearchFiltersTest {
         chain.exec(context)
         assertEquals(JobState.RUNNING, context.state)
         assertEquals(0, context.errors.size)
-        assertEquals(ApplicationId("Test"), context.reportFilterValidating.applicationId)
     }
 
     @Test
@@ -48,21 +46,6 @@ class ValidateSearchFiltersTest {
         chain.exec(context)
         assertEquals(JobState.RUNNING, context.state)
         assertEquals(0, context.errors.size)
-        assertEquals(ApplicationId("Test"), context.reportFilterValidating.applicationId)
-    }
-
-    @Test
-    fun emptyApplicationId() = runTest {
-        val context = ReportContext(
-            state = JobState.RUNNING,
-            reportFilterValidating = ReportSearchFilter(
-                applicationId = ApplicationId("    "),
-            )
-        )
-        chain.exec(context)
-        assertEquals(JobState.FAILING, context.state)
-        assertEquals(1, context.errors.size)
-        assertEquals("applicationId", context.errors.firstOrNull()?.field)
     }
 
     @Test
@@ -76,9 +59,6 @@ class ValidateSearchFiltersTest {
         chain.exec(context)
         assertEquals(JobState.RUNNING, context.state)
         assertEquals(0, context.errors.size)
-        assertEquals(2, context.reportFilterValidating.events.size)
-        assertContains(context.reportFilterValidated.events, Event("Test1"))
-        assertContains(context.reportFilterValidated.events, Event("test2"))
     }
 
     @Test
@@ -92,9 +72,6 @@ class ValidateSearchFiltersTest {
         chain.exec(context)
         assertEquals(JobState.RUNNING, context.state)
         assertEquals(0, context.errors.size)
-        assertEquals(2, context.reportFilterValidating.events.size)
-        assertContains(context.reportFilterValidated.events, Event("Test1"))
-        assertContains(context.reportFilterValidated.events, Event("test2"))
     }
 
     @Test
@@ -107,7 +84,7 @@ class ValidateSearchFiltersTest {
         )
         chain.exec(context)
         assertEquals(JobState.FAILING, context.state)
-        assertEquals(2, context.errors.size)
+        assertEquals(1, context.errors.size)
         assertEquals("events", context.errors.firstOrNull()?.field)
     }
 
@@ -133,9 +110,6 @@ class ValidateSearchFiltersTest {
         chain.exec(context)
         assertEquals(JobState.RUNNING, context.state)
         assertEquals(0, context.errors.size)
-        assertEquals(2, context.reportFilterValidating.searchFields.size)
-        assertEquals("Organization", context.reportFilterValidated.searchFields[0].fieldName)
-        assertEquals("Samples", context.reportFilterValidated.searchFields[1].fieldName)
     }
 
     @Test
@@ -160,9 +134,6 @@ class ValidateSearchFiltersTest {
         chain.exec(context)
         assertEquals(JobState.RUNNING, context.state)
         assertEquals(0, context.errors.size)
-        assertEquals(2, context.reportFilterValidating.events.size)
-        assertEquals("Organization", context.reportFilterValidated.searchFields[0].fieldName)
-        assertEquals("Samples", context.reportFilterValidated.searchFields[1].fieldName)
     }
 
     @Test

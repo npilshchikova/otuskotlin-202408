@@ -14,30 +14,26 @@ fun ICorChainDsl<ReportContext>.validateSearchFilters(title: String) = chain {
     this.title = title
     on { state == JobState.RUNNING }
 
-    worker("Trim strings in search fields") {
+    worker("Trim application id") {
         reportFilterValidating = reportFilterValidating.copy(
             applicationId = ApplicationId(reportFilterValidating.applicationId.asString().trim()),
+        )
+    }
+
+    worker("Trim event strings") {
+        reportFilterValidating = reportFilterValidating.copy(
             events = reportFilterValidating.events.map {
                 Event(it.asString().trim())
             },
+        )
+    }
+
+    worker("Trim strings in search fields") {
+        reportFilterValidating = reportFilterValidating.copy(
             searchFields = reportFilterValidating.searchFields.map {
                 it.deepCopy(it.fieldName.trim())
             }
         )
-    }
-
-    worker {
-        this.title = "Validate applicationId is not empty"
-        on { reportFilterValidating.applicationId.asString().isEmpty() }
-        handle {
-            fail(
-                errorValidation(
-                    field = "applicationId",
-                    violationCode = "empty",
-                    description = "field must not be empty"
-                )
-            )
-        }
     }
 
     worker {

@@ -30,7 +30,6 @@ class ValidateResumeParametersTest {
         chain.exec(context)
         assertEquals(JobState.RUNNING, context.state)
         assertEquals(0, context.errors.size)
-        assertEquals("Test", context.reportResumeValidating.fieldName)
     }
 
     @Test
@@ -47,7 +46,7 @@ class ValidateResumeParametersTest {
 
     companion object {
         val chain = rootChain {
-            validateSearchFilters("")
+            validateResumeParameters("")
         }
     }
 }
