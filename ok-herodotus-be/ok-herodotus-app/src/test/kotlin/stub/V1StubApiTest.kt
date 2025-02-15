@@ -41,7 +41,7 @@ class V1StubApiTest {
     ) { response ->
         val responseObj = response.body<ReportCreateResponse>()
         assertEquals(200, response.status.value)
-        assertEquals("BamAnalyzer", responseObj.report?.applicationId)
+        assertEquals("TestApp", responseObj.report?.applicationId)
     }
 
     @Test
