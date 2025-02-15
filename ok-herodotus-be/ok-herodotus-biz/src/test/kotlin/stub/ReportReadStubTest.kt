@@ -26,8 +26,8 @@ class ReportReadStubTest {
             ),
         )
         processor.exec(context)
+        assertEquals(reportId, context.reportResponse.reportId)
         with (ReportStub.get()) {
-            assertEquals(reportId, context.reportResponse.reportId)
             assertEquals(applicationId, context.reportResponse.applicationId)
             assertEquals(event, context.reportResponse.event)
             assertEquals(timestamp, context.reportResponse.timestamp)

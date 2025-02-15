@@ -29,7 +29,7 @@ object ReportStub {
     fun prepareSearchList(
         applicationId: ApplicationId,
         events: List<Event>,
-    ) = (0..this.samples.size).map {
+    ) = (0..< this.samples.size).map {
         this.prepareReport(
             applicationId = applicationId,
             event = events.firstOrNull(),

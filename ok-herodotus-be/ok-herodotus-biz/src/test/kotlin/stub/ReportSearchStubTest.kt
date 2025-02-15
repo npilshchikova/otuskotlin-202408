@@ -15,7 +15,7 @@ class ReportSearchStubTest {
     private val event = Event("New sample")
 
     @Test
-    fun read() = runTest {
+    fun search() = runTest {
         val context = ReportContext(
             command = ReportCommand.RESUME,
             state = JobState.NONE,
@@ -77,7 +77,7 @@ class ReportSearchStubTest {
             command = ReportCommand.RESUME,
             state = JobState.NONE,
             workMode = WorkMode.STUB,
-            stubCase = ReportStubs.UNKNOWN_EVENT,
+            stubCase = ReportStubs.DB_ERROR,
             reportFilterRequest = ReportSearchFilter(
                 applicationId = applicationId,
                 events = listOf(event)
