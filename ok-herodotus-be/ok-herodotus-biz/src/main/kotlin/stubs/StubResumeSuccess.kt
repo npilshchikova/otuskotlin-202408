@@ -26,6 +26,13 @@ fun ICorChainDsl<ReportContext>.stubResumeSuccess(title: String, corSettings: Re
                 applicationId = reportFilterRequest.applicationId,
                 events = reportFilterRequest.events
             )
+            // also includes all found reports as-is without resume action
+            reportsResponse.addAll(
+                ReportStub.prepareSearchList(
+                    applicationId = reportFilterRequest.applicationId,
+                    events = reportFilterRequest.events
+                )
+            )
         }
     }
 }

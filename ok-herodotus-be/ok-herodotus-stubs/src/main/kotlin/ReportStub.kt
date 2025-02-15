@@ -9,7 +9,7 @@ import ru.otus.otuskotlin.herodotus.stubs.ReportStubSample.REPORT_SAMPLE_2
 object ReportStub {
     private val samples = listOf(REPORT_SAMPLE_1, REPORT_SAMPLE_2)
 
-    fun get(num: Int): Report = samples[num.coerceAtMost(samples.size - 1)]
+    fun get(num: Int = 0): Report = samples[num.coerceAtMost(samples.size - 1)]
 
     fun prepareReport(
         reportId: ReportId? = null,
@@ -33,7 +33,7 @@ object ReportStub {
         this.prepareReport(
             applicationId = applicationId,
             event = events.firstOrNull(),
-            num=it
+            num = it
         )
     }
 

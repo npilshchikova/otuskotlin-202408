@@ -16,7 +16,7 @@ class ReportProcessor(
         context.also { it.corSettings = corSettings }
     )
 
-    private val businessChain = rootChain<ReportContext> {
+    private val businessChain = rootChain {
         initStatus("Initialize status")
 
         operation("Create report", ReportCommand.CREATE) {

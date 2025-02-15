@@ -8,6 +8,8 @@ version = rootProject.version
 dependencies {
     implementation(kotlin("stdlib"))
     implementation(libs.coroutines.core)
+    implementation(libs.kotlinx.datetime)
+    implementation(libs.kotlinx.serialization.json)
     implementation(project(":ok-herodotus-common"))
     implementation(project(":ok-herodotus-stubs"))
     implementation(libs.cor)
