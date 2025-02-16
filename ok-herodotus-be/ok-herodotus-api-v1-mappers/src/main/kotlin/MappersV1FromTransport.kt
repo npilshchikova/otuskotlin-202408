@@ -4,12 +4,12 @@ import kotlinx.datetime.Instant
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.jsonObject
-import ru.otus.otuskotlin.herodotus.api.v1.models.*
 import ru.otus.otuskotlin.herodotus.api.v1.mappers.exceptions.UnknownRequestClass
+import ru.otus.otuskotlin.herodotus.api.v1.models.*
 import ru.otus.otuskotlin.herodotus.common.NONE
 import ru.otus.otuskotlin.herodotus.common.ReportContext
 import ru.otus.otuskotlin.herodotus.common.models.*
-import ru.otus.otuskotlin.herodotus.common.stubs.Stubs
+import ru.otus.otuskotlin.herodotus.common.stubs.ReportStubs
 
 fun ReportContext.fromTransport(request: IRequest) = when (request) {
     is ReportCreateRequest -> fromTransport(request)
@@ -30,13 +30,13 @@ private fun Debug?.transportToWorkMode(): WorkMode = when (this?.mode) {
     null -> WorkMode.PROD
 }
 
-private fun Debug?.transportToStubCase(): Stubs = when (this?.stub) {
-    DebugStubs.SUCCESS -> Stubs.SUCCESS
-    DebugStubs.NOT_FOUND -> Stubs.NOT_FOUND
-    DebugStubs.VALUE_ERROR -> Stubs.VALUE_ERROR
-    DebugStubs.MISSING_DATA -> Stubs.MISSING_DATA
-    DebugStubs.CANNOT_DELETE -> Stubs.CANNOT_DELETE
-    null -> Stubs.NONE
+private fun Debug?.transportToStubCase(): ReportStubs = when (this?.stub) {
+    DebugStubs.SUCCESS -> ReportStubs.SUCCESS
+    DebugStubs.NOT_FOUND -> ReportStubs.NOT_FOUND
+    DebugStubs.UNKNOWN_APPLICATION -> ReportStubs.UNKNOWN_APPLICATION
+    DebugStubs.UNKNOWN_EVENT -> ReportStubs.UNKNOWN_EVENT
+    DebugStubs.CANNOT_DELETE -> ReportStubs.CANNOT_DELETE
+    null -> ReportStubs.NONE
 }
 
 fun ReportContext.fromTransport(request: ReportCreateRequest) {

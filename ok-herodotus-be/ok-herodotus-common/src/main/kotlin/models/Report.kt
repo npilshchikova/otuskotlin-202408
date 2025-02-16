@@ -14,6 +14,8 @@ data class Report(
 ) {
     fun isEmpty() = this == NONE
 
+    fun deepCopy(): Report = copy()
+
     companion object {
         private val NONE = Report()
     }

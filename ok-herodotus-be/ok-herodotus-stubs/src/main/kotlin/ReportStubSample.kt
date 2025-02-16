@@ -3,13 +3,16 @@ package ru.otus.otuskotlin.herodotus.stubs
 import kotlinx.datetime.Instant
 import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.put
-import ru.otus.otuskotlin.herodotus.common.models.*
+import ru.otus.otuskotlin.herodotus.common.models.ApplicationId
+import ru.otus.otuskotlin.herodotus.common.models.Event
+import ru.otus.otuskotlin.herodotus.common.models.Report
+import ru.otus.otuskotlin.herodotus.common.models.ReportId
 import kotlin.time.Duration.Companion.hours
 
 object ReportStubSample {
     val applicationId = ApplicationId("BamAnalyzer")
     val event = Event("NewSample")
-    private val timestamp = Instant.parse("2016-10-31T01:30:00.000-05:00")
+    val timestamp = Instant.parse("2016-10-31T01:30:00.000-05:00")
 
     val REPORT_SAMPLE_1: Report
         get() = Report(

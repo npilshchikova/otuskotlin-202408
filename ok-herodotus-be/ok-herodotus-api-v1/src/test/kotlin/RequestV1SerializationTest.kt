@@ -9,7 +9,7 @@ class RequestV1SerializationTest {
     private val request = ReportCreateRequest(
         debug = Debug(
             mode = DebugMode.STUB,
-            stub = DebugStubs.VALUE_ERROR
+            stub = DebugStubs.UNKNOWN_EVENT
         ),
         requestType = "create",
         report = ReportCreateObject(

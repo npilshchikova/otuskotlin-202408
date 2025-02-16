@@ -2,7 +2,7 @@ package ru.otus.otuskotlin.herodotus.common
 
 import kotlinx.datetime.Instant
 import ru.otus.otuskotlin.herodotus.common.models.*
-import ru.otus.otuskotlin.herodotus.common.stubs.Stubs
+import ru.otus.otuskotlin.herodotus.common.stubs.ReportStubs
 import ru.otus.otuskotlin.herodotus.common.ws.WsSession
 
 data class ReportContext(
@@ -10,8 +10,9 @@ data class ReportContext(
     var state: JobState = JobState.NONE,
     val errors: MutableList<HerodotusError> = mutableListOf(),
 
+    var corSettings: ReportCorSettings = ReportCorSettings(),
     var workMode: WorkMode = WorkMode.PROD,
-    var stubCase: Stubs = Stubs.NONE,
+    var stubCase: ReportStubs = ReportStubs.NONE,
     var wsSession: WsSession = WsSession.NONE,
 
     var requestId: RequestId = RequestId.NONE,
@@ -19,6 +20,14 @@ data class ReportContext(
     var reportRequest: Report = Report(),
     var reportFilterRequest: ReportSearchFilter = ReportSearchFilter.NONE,
     var reportResumeRequest: ReportResumeFilter = ReportResumeFilter.NONE,
+
+    var reportValidating: Report = Report(),
+    var reportFilterValidating: ReportSearchFilter = ReportSearchFilter.NONE,
+    var reportResumeValidating: ReportResumeFilter = ReportResumeFilter.NONE,
+
+    var reportValidated: Report = Report(),
+    var reportFilterValidated: ReportSearchFilter = ReportSearchFilter.NONE,
+    var reportResumeValidated: ReportResumeFilter = ReportResumeFilter.NONE,
 
     var reportResponse: Report = Report(),
     var reportsResponse: MutableList<Report> = mutableListOf(),

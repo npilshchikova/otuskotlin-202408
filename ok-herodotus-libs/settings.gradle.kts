@@ -24,3 +24,4 @@ plugins {
 }
 
 include(":ok-herodotus-lib-logging")
+include(":ok-herodotus-lib-cor")
