@@ -48,6 +48,10 @@ dependencies {
     // stubs
     implementation(project(":ok-herodotus-stubs"))
 
+    // database
+    implementation(project(":ok-herodotus-repo-stubs"))
+    implementation(project(":ok-herodotus-repo-inmemory"))
+
     // logging
     implementation(project(":ok-herodotus-api-log1"))
     implementation(libs.logging)
@@ -55,4 +59,5 @@ dependencies {
     testImplementation(kotlin("test-junit"))
     testImplementation(libs.ktor.server.test)
     testImplementation(libs.ktor.client.negotiation)
+    testImplementation(project(":ok-herodotus-repo-common"))
 }
