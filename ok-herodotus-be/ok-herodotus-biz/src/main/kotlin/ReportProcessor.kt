@@ -1,17 +1,13 @@
 package ru.otus.otuskotlin.herodotus.biz
 
-import ru.otus.otuskotlin.herodotus.biz.general.initStatus
-import ru.otus.otuskotlin.herodotus.biz.general.operation
-import ru.otus.otuskotlin.herodotus.biz.general.stubs
-import ru.otus.otuskotlin.herodotus.biz.general.validation
+import ru.otus.otuskotlin.herodotus.biz.general.*
+import ru.otus.otuskotlin.herodotus.biz.repo.*
 import ru.otus.otuskotlin.herodotus.biz.stubs.*
 import ru.otus.otuskotlin.herodotus.biz.validation.*
 import ru.otus.otuskotlin.herodotus.common.ReportContext
 import ru.otus.otuskotlin.herodotus.common.ReportCorSettings
-import ru.otus.otuskotlin.herodotus.common.models.ApplicationId
-import ru.otus.otuskotlin.herodotus.common.models.Event
-import ru.otus.otuskotlin.herodotus.common.models.ReportCommand
-import ru.otus.otuskotlin.herodotus.common.models.ReportId
+import ru.otus.otuskotlin.herodotus.common.models.*
+import ru.otus.otuskotlin.herodotus.cor.chain
 import ru.otus.otuskotlin.herodotus.cor.rootChain
 import ru.otus.otuskotlin.herodotus.cor.worker
 
@@ -24,6 +20,7 @@ class ReportProcessor(
 
     private val businessChain = rootChain {
         initStatus("Initialize status")
+        initRepo("Initialize repo")
 
         operation("Create report", ReportCommand.CREATE) {
             stubs {
@@ -49,6 +46,12 @@ class ReportProcessor(
                 validateTimestampNotEmpty("Check, that timestamp is not empty")
                 finishReportValidation()
             }
+            chain {
+                title = "Save new report to DB"
+                repoPrepareCreate("Prepare object to save")
+                repoCreate("Create new report in DB")
+            }
+            prepareResponse()
         }
 
         operation("Read report", ReportCommand.READ) {
@@ -70,6 +73,16 @@ class ReportProcessor(
                 validateReportIdNotEmpty("Check that reportId is not empty")
                 finishReportValidation()
             }
+            chain {
+                title = "Read report from DB"
+                repoRead("Report reading")
+                worker {
+                    title = "Prepare result"
+                    on { state == JobState.RUNNING }
+                    handle { reportRepoDone = reportRepoRead }
+                }
+            }
+            prepareResponse()
         }
 
         operation("Delete report", ReportCommand.DELETE) {
@@ -92,6 +105,13 @@ class ReportProcessor(
                 validateReportIdNotEmpty("Check that reportId is not empty")
                 finishReportValidation()
             }
+            chain {
+                title = "Delete report"
+                repoRead("Read report from DB")
+                repoPrepareDelete("Prepare object to delete")
+                repoDelete("Delete report from DB")
+            }
+            prepareResponse()
         }
 
         operation("Search for reports", ReportCommand.SEARCH) {
@@ -109,6 +129,8 @@ class ReportProcessor(
                 validateSearchFilters("Search filter parameters validation")
                 finishReportFilterValidation()
             }
+            repoSearch("Search for reports in DB")
+            prepareResponse()
         }
 
         operation("Search and summary for reports", ReportCommand.RESUME) {
@@ -130,6 +152,12 @@ class ReportProcessor(
                 validateResumeParameters("Resume parameters validation")
                 finishReportResumeValidation()
             }
+            chain {
+                title = "Search for reports in DB and resume results"
+                repoSearch("Search for reports in DB")
+                reportsResume("Resume search results")
+            }
+            prepareResponse()
         }
 
     }
