@@ -37,7 +37,7 @@ abstract class RepoReportSearchTest {
             )
         )
         assertIs<DbReportsResponseOk>(result)
-        val expected = listOf(initializedObjects[2], initializedObjects[3]).sortedBy { it.reportId.asString() }
+        val expected = listOf(initializedObjects[1], initializedObjects[2]).sortedBy { it.reportId.asString() }
         assertEquals(expected, result.data.sortedBy { it.reportId.asString() })
     }
 
@@ -60,7 +60,7 @@ abstract class RepoReportSearchTest {
             )
         )
         assertIs<DbReportsResponseOk>(result)
-        val expected = listOf(initializedObjects[1], initializedObjects[5]).sortedBy { it.reportId.asString() }
+        val expected = listOf(initializedObjects[0], initializedObjects[4]).sortedBy { it.reportId.asString() }
         assertEquals(expected, result.data.sortedBy { it.reportId.asString() })
     }
 
