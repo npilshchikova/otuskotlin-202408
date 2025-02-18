@@ -105,7 +105,7 @@ abstract class V1ReportRepoBaseTest {
     @Test
     fun resume() = v1TestApplication(
         settings = appSettingsResume,
-        endpoint = "offers",
+        endpoint = "resume",
         request = ReportResumeRequest(
             searchParams = ReportSearchParams(),
             resumeParams = ReportResumeParams("sampleId"),
