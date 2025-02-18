@@ -1,5 +1,7 @@
 package ru.otus.otuskotlin.herodotus.biz.repo
 
+import kotlinx.serialization.json.JsonPrimitive
+import kotlinx.serialization.json.contentOrNull
 import ru.otus.otuskotlin.herodotus.common.ReportContext
 import ru.otus.otuskotlin.herodotus.common.models.JobState
 import ru.otus.otuskotlin.herodotus.common.models.ReportSummary
@@ -15,8 +17,15 @@ fun ICorChainDsl<ReportContext>.reportsResume(title: String) = worker {
         resumeRepoDone = ReportSummary(
             itemsNumber = reportsRepoDone.size,
             summary = reportsRepoDone.map {
+                val fieldValue = it.content[reportResumeValidated.fieldName]
+
                 ReportSummary.SummaryValue(
-                    fieldValue = it.content[reportResumeValidated.fieldName].toString(),
+                    fieldValue = when (fieldValue) {
+                        is JsonPrimitive -> {
+                            fieldValue.contentOrNull ?: "NA"
+                        }
+                        else -> fieldValue.toString()
+                    },
                     event = it.event,
                     timestamp = it.timestamp,
                 )

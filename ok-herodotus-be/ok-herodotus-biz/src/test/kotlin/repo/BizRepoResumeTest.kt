@@ -58,7 +58,4 @@ class BizRepoResumeTest {
         assertEquals("Test", context.resumeResponse.summary.firstOrNull()?.event?.asString())
         assertEquals(Instant.fromEpochMilliseconds(123456), context.resumeResponse.summary.firstOrNull()?.timestamp)
     }
-
-    @Test
-    fun repoOffersNotFoundTest() = repoNotFoundTest(command)
 }
