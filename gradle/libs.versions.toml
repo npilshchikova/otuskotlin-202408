@@ -12,6 +12,8 @@ muschko = "9.4.0"
 logback = "1.5.3"
 uuid = "0.8.4"
 db-cache = "0.13.0"
+clickhouse-client = "0.8.1"
+mockk = "1.13.10"
 
 [libraries]
 plugin-kotlin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
@@ -53,6 +55,10 @@ cor = { module = "ru.otus.otuskotlin.herodotus.libs:ok-herodotus-lib-cor" }
 # DB repo
 uuid = { module = "com.benasher44:uuid", version.ref = "uuid" }
 db-cache4k = { module = "io.github.reactivecircus.cache4k:cache4k", version.ref = "db-cache" }
+
+# DB
+clickhouse-client = { module = "com.clickhouse:client-v2", version.ref = "clickhouse-client"}
+mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
 
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
