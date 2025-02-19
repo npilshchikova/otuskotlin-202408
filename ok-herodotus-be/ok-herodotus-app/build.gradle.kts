@@ -53,6 +53,7 @@ dependencies {
     // database
     implementation(project(":ok-herodotus-repo-stubs"))
     implementation(project(":ok-herodotus-repo-inmemory"))
+    implementation(project(":ok-herodotus-repo-clickhouse"))
 
     // logging
     implementation(project(":ok-herodotus-api-log1"))
