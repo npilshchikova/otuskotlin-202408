@@ -6,26 +6,19 @@ import ru.otus.otuskotlin.herodotus.biz.ReportProcessor
 import ru.otus.otuskotlin.herodotus.common.NONE
 import ru.otus.otuskotlin.herodotus.common.ReportContext
 import ru.otus.otuskotlin.herodotus.common.models.JobState
-import ru.otus.otuskotlin.herodotus.common.models.Report
 import ru.otus.otuskotlin.herodotus.common.models.ReportCommand
 import ru.otus.otuskotlin.herodotus.common.models.WorkMode
 import ru.otus.otuskotlin.herodotus.stubs.ReportStub
 import kotlin.test.assertEquals
 import kotlin.test.assertNotEquals
 
-private val stub = ReportStub.get()
-
 fun validationTimestampCorrect(command: ReportCommand, processor: ReportProcessor) = runTest {
     val context = ReportContext(
         command = command,
         state = JobState.NONE,
         workMode = WorkMode.TEST,
-        reportRequest = Report(
-            reportId = stub.reportId,
-            applicationId = stub.applicationId,
-            event = stub.event,
+        reportRequest = ReportStub.prepareReport(
             timestamp = Instant.parse("2018-03-20T09:12:28Z"),
-            content = stub.content,
         ),
     )
     processor.exec(context)
@@ -39,12 +32,8 @@ fun validationTimestampEmpty(command: ReportCommand, processor: ReportProcessor)
         command = command,
         state = JobState.NONE,
         workMode = WorkMode.TEST,
-        reportRequest = Report(
-            reportId = stub.reportId,
-            applicationId = stub.applicationId,
-            event = stub.event,
+        reportRequest = ReportStub.prepareReport(
             timestamp = Instant.NONE,
-            content = stub.content,
         ),
     )
     processor.exec(context)

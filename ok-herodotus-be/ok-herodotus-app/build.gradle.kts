@@ -25,6 +25,8 @@ jib {
 
 dependencies {
     implementation(kotlin("stdlib"))
+    implementation(libs.kotlinx.datetime)
+    implementation(libs.kotlinx.serialization.json)
     implementation(libs.ktor.server.core)
     implementation(libs.ktor.server.netty)
     implementation(libs.ktor.server.cors)
@@ -48,6 +50,11 @@ dependencies {
     // stubs
     implementation(project(":ok-herodotus-stubs"))
 
+    // database
+    implementation(project(":ok-herodotus-repo-stubs"))
+    implementation(project(":ok-herodotus-repo-inmemory"))
+    implementation(project(":ok-herodotus-repo-clickhouse"))
+
     // logging
     implementation(project(":ok-herodotus-api-log1"))
     implementation(libs.logging)
@@ -55,4 +62,6 @@ dependencies {
     testImplementation(kotlin("test-junit"))
     testImplementation(libs.ktor.server.test)
     testImplementation(libs.ktor.client.negotiation)
+    testImplementation(libs.mockk)
+    testImplementation(project(":ok-herodotus-repo-common"))
 }

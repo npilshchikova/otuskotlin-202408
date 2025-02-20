@@ -16,4 +16,6 @@ dependencies {
 
     testImplementation(kotlin("test-junit"))
     testImplementation(libs.coroutines.test)
+    testImplementation(project(":ok-herodotus-repo-tests"))
+    testImplementation(project(":ok-herodotus-repo-inmemory"))
 }
